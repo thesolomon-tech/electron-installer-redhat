@@ -22,10 +22,10 @@ AutoReqProv: no
 print('\n\n\n') }
 
 
-%>%install
+%install
 mkdir -p %{buildroot}/usr/
-cp <%= process.platform === 'darwin' ? '-R' : '-r' %> <%= usrPath %> %{buildroot}/usr/
-
+<% const nodeMajorVersion = parseInt(process.version.substring(1).split('.')[0]); %>
+cp <%= process.platform === 'darwin' ? '-R' : '-r' %> <%= nodeMajorVersion > 15 ? 'usr/*' : usrPath %> %{buildroot}/usr/
 
 %files
 /usr/bin/<%= name %>
